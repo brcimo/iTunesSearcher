@@ -35,8 +35,8 @@ class DataManager: NSObject, NSURLSessionDelegate
     {
         if (session == nil)
         {
-            let conf: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
-            session = NSURLSession(configuration: conf)
+            let configuration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
+            session = NSURLSession(configuration: configuration, delegate: self, delegateQueue: NSOperationQueue.mainQueue())
         }
         return session!
     }
@@ -57,30 +57,28 @@ class DataManager: NSObject, NSURLSessionDelegate
     {
         let linkString = NSString(string: myUrl.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
         self.dataTask?.cancel()
-        self.dataTask = self.getSession().dataTaskWithURL(NSURL(string: linkString as String)!, completionHandler: { (data: NSData? , response: NSURLResponse?, error: NSError?) in
-            dispatch_async(dispatch_get_main_queue(),
+
+        self.dataTask = self.getSession().dataTaskWithURL(NSURL(string: linkString as String)!, completionHandler: { (data: NSData? , response: NSURLResponse?, error: NSError?) -> Void in
+            if (error != nil)
+            {
+                print("\(error?.localizedDescription)")
+            }
+            else
+            {
+                if (data != nil && data?.length > 0)
                 {
-                    if (error != nil)
+                    var returnData = NSString(data: data!, encoding: NSUTF8StringEncoding)
+                    returnData  = returnData!.stringByReplacingOccurrencesOfString("\\", withString: "")
+                    do
                     {
-                        print("\(error?.localizedDescription)")
-                    }
-                    else
-                    {
-                        if (data != nil && data?.length > 0)
+                        if let dictionary = self.convertJSONDataToDictionary(data!)
                         {
-                            var returnData = NSString(data: data!, encoding: NSUTF8StringEncoding)
-                            returnData  = returnData!.stringByReplacingOccurrencesOfString("\\", withString: "")
-                            do
-                            {
-                                if let dictionary = self.convertJSONDataToDictionary(data!)
-                                {
-                                    DataCache.sharedInstance.searchItemsList = dictionary["results"] as! NSArray
-                                    self.delegate?.didFinishWithJSONData(dictionary)
-                                }
-                            }
+                            DataCache.sharedInstance.searchItemsList = dictionary["results"] as! NSArray
+                            self.delegate?.didFinishWithJSONData(dictionary)
                         }
                     }
-            })
+                }
+            }
         })
         self.dataTask?.resume()
     }
