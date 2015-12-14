@@ -14,9 +14,10 @@
 		FB53D2BB1C1E20EE008BA7ED /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = FB53D2BA1C1E20EE008BA7ED /* iCarousel.m */; };
 		FB53D2C51C1E3DD2008BA7ED /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB53D2C31C1E3DD2008BA7ED /* MainViewController.swift */; };
 		FB53D2C61C1E3DD2008BA7ED /* SearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB53D2C41C1E3DD2008BA7ED /* SearchListViewController.swift */; };
-		FB53D2C91C1E4065008BA7ED /* DataManagerCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB53D2C81C1E4065008BA7ED /* DataManagerCache.swift */; };
+		FB53D2C91C1E4065008BA7ED /* DataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB53D2C81C1E4065008BA7ED /* DataCache.swift */; };
 		FB53D2CB1C1E7A5D008BA7ED /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB53D2CA1C1E7A5D008BA7ED /* DetailViewController.swift */; };
 		FB53D2CF1C1E80B3008BA7ED /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB53D2CE1C1E80B3008BA7ED /* AsyncImageView.m */; };
+		FBFF9EA81C1EAF06009F1240 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBFF9EA71C1EAF06009F1240 /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,10 +32,11 @@
 		FB53D2BF1C1E2424008BA7ED /* iTunesSearcher-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iTunesSearcher-Bridging-Header.h"; sourceTree = "<group>"; };
 		FB53D2C31C1E3DD2008BA7ED /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		FB53D2C41C1E3DD2008BA7ED /* SearchListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchListViewController.swift; sourceTree = "<group>"; };
-		FB53D2C81C1E4065008BA7ED /* DataManagerCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManagerCache.swift; sourceTree = "<group>"; };
+		FB53D2C81C1E4065008BA7ED /* DataCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCache.swift; sourceTree = "<group>"; };
 		FB53D2CA1C1E7A5D008BA7ED /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		FB53D2CD1C1E80B3008BA7ED /* AsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView.h; sourceTree = "<group>"; };
 		FB53D2CE1C1E80B3008BA7ED /* AsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView.m; sourceTree = "<group>"; };
+		FBFF9EA71C1EAF06009F1240 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +103,8 @@
 		FB53D2C11C1E3D9E008BA7ED /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FB53D2C81C1E4065008BA7ED /* DataManagerCache.swift */,
+				FB53D2C81C1E4065008BA7ED /* DataCache.swift */,
+				FBFF9EA71C1EAF06009F1240 /* DataManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -206,8 +209,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB53D2C51C1E3DD2008BA7ED /* MainViewController.swift in Sources */,
+				FBFF9EA81C1EAF06009F1240 /* DataManager.swift in Sources */,
 				FB53D2BB1C1E20EE008BA7ED /* iCarousel.m in Sources */,
-				FB53D2C91C1E4065008BA7ED /* DataManagerCache.swift in Sources */,
+				FB53D2C91C1E4065008BA7ED /* DataCache.swift in Sources */,
 				FB53D2CB1C1E7A5D008BA7ED /* DetailViewController.swift in Sources */,
 				FB53D2C61C1E3DD2008BA7ED /* SearchListViewController.swift in Sources */,
 				FB20FB361C16A6FE00898511 /* AppDelegate.swift in Sources */,
@@ -324,7 +328,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				INFOPLIST_FILE = iTunesSearcher/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bryancimo.iTunesSearcher;
@@ -337,7 +341,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				INFOPLIST_FILE = iTunesSearcher/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bryancimo.iTunesSearcher;

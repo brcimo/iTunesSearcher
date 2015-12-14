@@ -53,7 +53,7 @@ class DetailViewController: UIViewController
     
     func setupFields()
     {
-        itemDetailDictionary = DataManagerCache.sharedInstance.searchItemsList[selectedItemIndex] as! NSDictionary
+        itemDetailDictionary = DataCache.sharedInstance.searchItemsList[selectedItemIndex] as! NSDictionary
         mainImage.imageURL = NSURL(string: itemDetailDictionary["artworkUrl100"] as! String)
         trackName.text = itemDetailDictionary["trackName"] as? String
         longDescription.text = itemDetailDictionary["longDescription"] as? String

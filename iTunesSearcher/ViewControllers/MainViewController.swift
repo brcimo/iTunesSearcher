@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController, UITextFieldDelegate
+class MainViewController: UIViewController, UITextFieldDelegate, APIDelegate
 {
     //  MARK: - Vars
     
@@ -16,7 +16,7 @@ class MainViewController: UIViewController, UITextFieldDelegate
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
-    var mediaType = "movies"
+    var mediaType = "movie"
 
     //  MARK: -  Init
     
@@ -83,8 +83,24 @@ class MainViewController: UIViewController, UITextFieldDelegate
     func startSearch()
     {
         spinner.hidden = false
-        DataManagerCache.sharedInstance.searchForItems(searchText.text!)
+        let urlString = "https://itunes.apple.com/search?term=\(searchText.text!)&media=\(mediaType)"
+        DataManager(delegate: self).getJSONFromURLString(urlString as NSString)
+    }
+    
+    // MARK: - APIDelegate
+    
+    func didFinish()
+    {
+    }
+    
+    func didFinishWithJSONData(responseDictionary: NSDictionary?)
+    {
         performSegueWithIdentifier("segueShowList", sender: self)
     }
+    
+    func didFail()
+    {
+    }
+    
 }
 

@@ -13,6 +13,7 @@ class SearchListViewController: UIViewController, iCarouselDataSource, iCarousel
     //  MARK: - Vars
     
     @IBOutlet weak var carousel: iCarousel!
+    @IBOutlet weak var noResultsLabel: UILabel!
     
     var selectedItemIndex = -1
     let imageTag = 100
@@ -25,11 +26,21 @@ class SearchListViewController: UIViewController, iCarouselDataSource, iCarousel
     {
         super.viewDidLoad()
         carousel.type = .CoverFlow
+        updateNoResultsLabel()
     }
 
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
+    }
+    
+    //  MARK: - Funcs
+    func updateNoResultsLabel()
+    {
+        if DataCache.sharedInstance.searchItemsList.count > 0
+        {
+            noResultsLabel.hidden = true
+        }
     }
     
     //  MARK: - iCarousel Delegates
@@ -42,16 +53,10 @@ class SearchListViewController: UIViewController, iCarouselDataSource, iCarousel
         
         if (view == nil)
         {
-            itemView = UIImageView(frame:CGRect(x:0, y:0, width:200, height:200))
-            itemView.image = UIImage(named: "page")
-            itemView.contentMode = .Center
-            
+            itemView = UIImageView(frame: CGRect(x:0, y:0, width:200, height:200))
             label = UILabel(frame:itemView.bounds)
             
-            setupNewViews(label, previewImage: previewImage)
-            
-            itemView.addSubview(previewImage)
-            itemView.addSubview(label)
+            setupItemView(itemView, previewImage: previewImage, label: label)
         }
         else
         {
@@ -60,14 +65,23 @@ class SearchListViewController: UIViewController, iCarouselDataSource, iCarousel
             previewImage = itemView.viewWithTag(imageTag) as! AsyncImageView
         }
         
-        previewImage.imageURL = NSURL(string: DataManagerCache.sharedInstance.searchItemsList[index]["artworkUrl100"] as! String)
+        previewImage.imageURL = NSURL(string: DataCache.sharedInstance.searchItemsList[index]["artworkUrl100"] as! String)
         
-        label.text = DataManagerCache.sharedInstance.searchItemsList[index]["trackName"] as? String
+        label.text = DataCache.sharedInstance.searchItemsList[index]["trackName"] as? String
         
         return itemView
     }
     
-    func setupNewViews(label: UILabel, previewImage: AsyncImageView)
+    func setupItemView(itemView: UIImageView, previewImage: AsyncImageView, label: UILabel)
+    {
+        itemView.image = UIImage(named: "page")
+        itemView.contentMode = .Center
+        setupImageAndLabel(label, previewImage: previewImage)
+        itemView.addSubview(previewImage)
+        itemView.addSubview(label)
+    }
+    
+    func setupImageAndLabel(label: UILabel, previewImage: AsyncImageView)
     {
         label.backgroundColor = UIColor.clearColor()
         label.textAlignment = .Center
@@ -81,7 +95,7 @@ class SearchListViewController: UIViewController, iCarouselDataSource, iCarousel
     
     func numberOfItemsInCarousel(carousel: iCarousel) -> Int
     {
-        return DataManagerCache.sharedInstance.searchItemsList.count
+        return DataCache.sharedInstance.searchItemsList.count
     }
     
     func carousel(carousel: iCarousel, valueForOption option: iCarouselOption, withDefault value: CGFloat) -> CGFloat
